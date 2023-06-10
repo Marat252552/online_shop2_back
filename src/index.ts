@@ -5,7 +5,7 @@ import {app} from './app'
 dotenv.config()
 
 const start = async () => {
-    let PORT = process.env.PORT
+    let PORT = process.env.PORT || 3000
     try {
         DBconnect()
         app.listen(PORT, () => {

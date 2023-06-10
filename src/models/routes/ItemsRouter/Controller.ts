@@ -1,13 +1,10 @@
-import { v4 } from "uuid"
 import ItemModel from "../../../database/models/ItemModel"
 import { AddRatingReq_T, CreateItemReq_T, DeleteItemReq_T, GetItemRatingReq_T, GetItemReq_T, GetItemsReq_T } from "./types"
-import path from "path"
-import fs from 'fs'
 import RatingModel from "../../../database/models/RatingModel"
 import FileModel from "../../../database/models/FileModel"
 import CartItemModel from "../../../database/models/CartItem"
 import FavoriteItemModel from "../../../database/models/FavoriteItemModel"
-import { DeleteFile, CloudUpload } from "../../../yandex_files/Actions"
+import { CloudDelete, CloudUpload } from "../../../yandex_files/Actions"
 import { UploadFile_T } from "../../../shared/types"
 
 
@@ -131,10 +128,10 @@ class Controller {
             if (!deleted_item) return res.status(400).json({ message: 'Товар с указанным _id не найден' })
 
             for await (const file of deleted_item.images) {
-                await DeleteFile(file.key)
+                await CloudDelete(file.key)
             }
 
-            await DeleteFile(deleted_item.main_image.key)
+            await CloudDelete(deleted_item.main_image.key)
 
             await RatingModel.deleteMany({ item_id: _id })
             await FavoriteItemModel.deleteMany({ item_id: _id })
@@ -238,7 +235,6 @@ class Controller {
             res.sendStatus(500)
         }
     }
-
 }
 
 export default new Controller()

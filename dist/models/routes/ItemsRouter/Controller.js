@@ -166,7 +166,7 @@ class Controller {
                         _d = false;
                         try {
                             const file = _c;
-                            yield (0, Actions_1.DeleteFile)(file.key);
+                            yield (0, Actions_1.CloudDelete)(file.key);
                         }
                         finally {
                             _d = true;
@@ -180,7 +180,7 @@ class Controller {
                     }
                     finally { if (e_2) throw e_2.error; }
                 }
-                yield (0, Actions_1.DeleteFile)(deleted_item.main_image.key);
+                yield (0, Actions_1.CloudDelete)(deleted_item.main_image.key);
                 yield RatingModel_1.default.deleteMany({ item_id: _id });
                 yield FavoriteItemModel_1.default.deleteMany({ item_id: _id });
                 yield CartItem_1.default.deleteMany({ item_id: _id });

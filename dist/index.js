@@ -17,7 +17,7 @@ const DBconnect_1 = __importDefault(require("./database/DBconnect"));
 const app_1 = require("./app");
 dotenv_1.default.config();
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    let PORT = process.env.PORT;
+    let PORT = process.env.PORT || 3000;
     try {
         (0, DBconnect_1.default)();
         app_1.app.listen(PORT, () => {
